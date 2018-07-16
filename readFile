@@ -22,7 +22,7 @@ done < sorted.dat
 
 # prepare to loop through students
 min=0
-max=${#students[@]}
+((max=${#students[@]} - 1))
 found=false
 
 # search for the correct student
@@ -30,6 +30,11 @@ while [[ $min -le $max ]] ; do
     ((num=$min+$max))
     ((mid=$num/2))
     name=$(echo ${students[$mid]} | cut -d: -f1)
+
+    #echo Min $min
+    #echo Max $max
+    #echo Mid $mid
+    #echo Name $name
     
     if [[ "$name" == "$searchName" ]] ; then
 	echo "Found Student"
