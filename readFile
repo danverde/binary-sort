@@ -1,0 +1,57 @@
+#!/bin/bash
+
+# sort the file!
+sort names.dat > sorted.dat
+
+#get the name to search for
+echo -e "What name are you looking for? --> \c"
+read searchName
+
+echo Search Name: $searchName
+
+# this will read in a file named sorted.dat into an array called students starting at index 0
+((count = 0))
+while read students[$count] ; do
+      ((count++))
+done < sorted.dat
+
+# -d is the delimeter
+# -f1 is before the delimeter, -f2 would be what comes after
+#name=$(echo $students[$mid]} | cut -d: -f1)
+
+#echo Array ${students[1]}
+#echo Students $students					      
+#echo Name: $name
+# echo NumStudents ${#students[@]}
+
+# prepare to loop through students
+min=0
+max=${#students[@]}
+found=false
+
+# search for the correct student
+while [[ $min -ne $max ]] ; do
+    ((mid = $min + $max / 2))
+    echo Middle $mid
+    #echo MidStudent ${students[$mid]}
+#    mid=1
+    name=$(echo $students[$mid]} | cut -d: -f1)
+    echo $name
+
+					       
+    if [ "$name" == "$searchName" ] ; then
+	echo "Found Student"
+        echo ${students[$mid]}
+	found=true
+	break
+    elif [ "$name" < "$searchName" ] ; then
+	max=($mid + 1)
+    elif [ "$name" > "$searchName" ] ; then
+	min=($mid - 1)
+    fi
+done
+
+if [ "$found" = false ] ; then   
+   echo "$searchName does not exist"
+fi
+   
