@@ -17,11 +17,9 @@ done < sorted.dat
 
 # -d is the delimeter
 # -f1 is before the delimeter, -f2 would be what comes after
-#name=$(echo $students[$mid]} | cut -d: -f1)
+# name=$(echo $students[$middle]} | cut -d: -f1)
 
 #echo Array ${students[1]}
-#echo Students $students					      
-#echo Name: $name
 # echo NumStudents ${#students[@]}
 
 # prepare to loop through students
@@ -30,28 +28,28 @@ max=${#students[@]}
 found=false
 
 # search for the correct student
-while [[ $min -ne $max ]] ; do
-    ((mid = $min + $max / 2))
-    echo Middle $mid
-    #echo MidStudent ${students[$mid]}
-#    mid=1
+while [[ $min -le $max ]] ; do
+    ((num=$min+$max))
+    ((mid=$num/2))
     name=$(echo $students[$mid]} | cut -d: -f1)
     echo $name
-
-					       
+    echo Min $min
+    echo Max $max
+    echo Mid $mid
+    
     if [ "$name" == "$searchName" ] ; then
 	echo "Found Student"
         echo ${students[$mid]}
 	found=true
 	break
     elif [ "$name" < "$searchName" ] ; then
-	max=($mid + 1)
+	((min=$mid + 1))
     elif [ "$name" > "$searchName" ] ; then
-	min=($mid - 1)
+	((max=$mid - 1))
     fi
 done
 
 if [ "$found" = false ] ; then   
-   echo "$searchName does not exist"
+   echo "$searchName was not found"
 fi
    
