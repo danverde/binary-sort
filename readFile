@@ -30,7 +30,8 @@ while [[ $min -le $max ]] ; do
     ((num=$min+$max))
     ((mid=$num/2))
     name=$(echo ${students[$mid]} | cut -d: -f1)
-
+    grade=$(echo ${students[$mid]} | cut -d: -f2)
+    
     #echo Min $min
     #echo Max $max
     #echo Mid $mid
@@ -38,7 +39,9 @@ while [[ $min -le $max ]] ; do
     
     if [[ "$name" == "$searchName" ]] ; then
 	echo "Found Student"
-        echo ${students[$mid]}
+	
+	echo "Name: $name"
+	echo "Grade: $grade" 
 	found=true
 	break
     elif [[ "$name" < "$searchName" ]] ; then
