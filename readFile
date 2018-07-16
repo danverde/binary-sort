@@ -7,8 +7,6 @@ sort names.dat > sorted.dat
 echo -e "What name are you looking for? --> \c"
 read searchName
 
-echo Search Name: $searchName
-
 # this will read in a file named sorted.dat into an array called students starting at index 0
 ((count = 0))
 while read students[$count] ; do
@@ -31,20 +29,16 @@ found=false
 while [[ $min -le $max ]] ; do
     ((num=$min+$max))
     ((mid=$num/2))
-    name=$(echo $students[$mid]} | cut -d: -f1)
-    echo $name
-    echo Min $min
-    echo Max $max
-    echo Mid $mid
+    name=$(echo ${students[$mid]} | cut -d: -f1)
     
-    if [ "$name" == "$searchName" ] ; then
+    if [[ "$name" == "$searchName" ]] ; then
 	echo "Found Student"
         echo ${students[$mid]}
 	found=true
 	break
-    elif [ "$name" < "$searchName" ] ; then
+    elif [[ "$name" < "$searchName" ]] ; then
 	((min=$mid + 1))
-    elif [ "$name" > "$searchName" ] ; then
+    elif [[ "$name" > "$searchName" ]] ; then
 	((max=$mid - 1))
     fi
 done
